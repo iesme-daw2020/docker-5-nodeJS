@@ -4,8 +4,8 @@ import './ErrorAlert.css';
 
 function ErrorAlert(props) {
   return (
-    <section className='error-alert'>
-      <h2>Something went wrong!</h2>
+    <section className="error-alert">
+      <h2>Algo fue mal!</h2>
       <p>{props.errorText}</p>
     </section>
   );

@@ -19,14 +19,14 @@ function App() {
         const resData = await response.json();
 
         if (!response.ok) {
-          throw new Error(resData.message || 'Fetching the goals failed.');
+          throw new Error(resData.message || 'Fallo al obtener los objetivos.');
         }
 
         setLoadedGoals(resData.goals);
       } catch (err) {
         setError(
           err.message ||
-            'Fetching goals failed - the server responsed with an error.'
+            'Fallo al obtener los objetivos - el servidor respondió con un error.'
         );
       }
       setIsLoading(false);
@@ -45,14 +45,14 @@ function App() {
           text: goalText,
         }),
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
 
       const resData = await response.json();
 
       if (!response.ok) {
-        throw new Error(resData.message || 'Adding the goal failed.');
+        throw new Error(resData.message || 'Fallo al añadir un objetivo.');
       }
 
       setLoadedGoals((prevGoals) => {
@@ -68,7 +68,7 @@ function App() {
     } catch (err) {
       setError(
         err.message ||
-          'Adding a goal failed - the server responsed with an error.'
+          'Fallo al añadir un objetivo - el servidor respondió con un error.'
       );
     }
     setIsLoading(false);
@@ -85,7 +85,7 @@ function App() {
       const resData = await response.json();
 
       if (!response.ok) {
-        throw new Error(resData.message || 'Deleting the goal failed.');
+        throw new Error(resData.message || 'Fallo al borrar un objetivo.');
       }
 
       setLoadedGoals((prevGoals) => {
@@ -95,7 +95,7 @@ function App() {
     } catch (err) {
       setError(
         err.message ||
-          'Deleting the goal failed - the server responsed with an error.'
+          'Fallo al borrar un objetivo - el servidor respondió con un error.'
       );
     }
     setIsLoading(false);

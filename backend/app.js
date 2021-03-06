@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/goals', async (req, res) => {
-  console.log('TRYING TO FETCH GOALS');
+  console.log('Tratando de obtener los objetivos');
   try {
     const goals = await Goal.find();
     res.status(200).json({
@@ -36,21 +36,21 @@ app.get('/goals', async (req, res) => {
         text: goal.text,
       })),
     });
-    console.log('FETCHED GOALS');
+    console.log('Objetivos obtenidos');
   } catch (err) {
-    console.error('ERROR FETCHING GOALS');
+    console.error('Error obteniendo los objetivos');
     console.error(err.message);
-    res.status(500).json({ message: 'Failed to load goals.' });
+    res.status(500).json({ message: 'Fallo al cargar los objetivos.' });
   }
 });
 
 app.post('/goals', async (req, res) => {
-  console.log('TRYING TO STORE GOAL');
+  console.log('Tratando de guardar un objetivo');
   const goalText = req.body.text;
 
   if (!goalText || goalText.trim().length === 0) {
-    console.log('INVALID INPUT - NO TEXT');
-    return res.status(422).json({ message: 'Invalid goal text.' });
+    console.log('Entrada inválida - no hay texto');
+    return res.status(422).json({ message: 'Objetivo inválido' });
   }
 
   const goal = new Goal({
@@ -59,27 +59,28 @@ app.post('/goals', async (req, res) => {
 
   try {
     await goal.save();
-    res
-      .status(201)
-      .json({ message: 'Goal saved', goal: { id: goal.id, text: goalText } });
-    console.log('STORED NEW GOAL');
+    res.status(201).json({
+      message: 'Objetivo guardado',
+      goal: { id: goal.id, text: goalText },
+    });
+    console.log('Objetivo guardado');
   } catch (err) {
-    console.error('ERROR FETCHING GOALS');
+    console.error('Error al guardar un objetivo');
     console.error(err.message);
-    res.status(500).json({ message: 'Failed to save goal.' });
+    res.status(500).json({ message: 'Fallo al guardar un objetivo.' });
   }
 });
 
 app.delete('/goals/:id', async (req, res) => {
-  console.log('TRYING TO DELETE GOAL');
+  console.log('Tratando de borrar un objetivo');
   try {
     await Goal.deleteOne({ _id: req.params.id });
-    res.status(200).json({ message: 'Deleted goal!' });
-    console.log('DELETED GOAL');
+    res.status(200).json({ message: 'Objetivo borrado!' });
+    console.log('Objetivo borrado');
   } catch (err) {
-    console.error('ERROR FETCHING GOALS');
+    console.error('Error al borrar un objetivo');
     console.error(err.message);
-    res.status(500).json({ message: 'Failed to delete goal.' });
+    res.status(500).json({ message: 'Fallo al borrar un objetivo.' });
   }
 });
 
@@ -91,10 +92,10 @@ mongoose.connect(
   },
   (err) => {
     if (err) {
-      console.error('FAILED TO CONNECT TO MONGODB');
+      console.error('Fallo al conectar a MongoDB');
       console.error(err);
     } else {
-      console.log('CONNECTED TO MONGODB');
+      console.log('Conectado a MongoDB');
       app.listen(80);
     }
   }
